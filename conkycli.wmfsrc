@@ -1,0 +1,15 @@
+update_interval 1
+
+#MAIL ${tail /tmp/.mails 1} | \
+
+TEXT
+${execi 60 ~/.config/wmfs/gmail.wmfsrc > /dev/null 2>&1}
+${execi 60 ~/.config/wmfs/pacman.wmfsrc > /dev/null 2>&1}
+${time %D} ${time %H}:${time %M} | \
+CPU ${freq_g} ${cpubar cpu0 1,2} ${platform coretemp.0 temp 1}°C ${cpubar cpu1 1,2} ${platform coretemp.1 temp 1}°C | \
+${if_up eth0}LAN ${addr eth0} ${downspeedf eth0}Ko/s - ${upspeedf eth0}Ko/s | ${endif}\
+${if_up wlan0}WIFI ${addr wlan0} ${downspeedf wlan0}Ko/s - ${upspeedf wlan0}Ko/s | ${endif}\
+${if_existing /sys/class/power_supply/BAT0/uevent}Bat ${battery_percent BAT0}% - ${execi 10 acpitool -b |awk '{print $NF}'} | ${endif}\
+VOL ${execi 1 ~/.config/wmfs/soundinfo.sh} | \
+PKG ${tail /tmp/.pac 1}      \
+

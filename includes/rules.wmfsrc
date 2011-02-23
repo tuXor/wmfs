@@ -1,0 +1,13 @@
+[rules]
+#       [rule]
+#           instance = "spotify.exe"
+#           role     = "Wine"
+#           screen   = 1
+#           tag      = 5
+#           max      = true
+#       [/rule]
+       [rule]
+           instance = "Skype"
+           ignoretags = true
+       [/rule]
+[/rules]

@@ -1,0 +1,8 @@
+#!/bin/sh
+paquets=`pacman -Qu | wc -l`
+if [ -n $paquets ]
+then 
+	echo $paquets > /tmp/.pac &
+else
+	echo 0 > /tmp/.pac &
+fi

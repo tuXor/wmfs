@@ -1,0 +1,9 @@
+#!/bin/bash
+## Quickly checks if I have new gmail
+#echo -e "Checking for new messages... \c"
+atomlines=`wget -T 3 -t 1 -q --secure-protocol=TLSv1 \
+ --no-check-certificate \
+ --user=<user> --password=<password> \
+ https://mail.google.com/mail/feed/atom -O - \
+ | wc -l`
+[ $atomlines -gt "0" ] && echo -e "new" > /tmp/.mails || echo -e "0" > /tmp/.mails

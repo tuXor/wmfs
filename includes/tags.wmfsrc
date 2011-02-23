@@ -1,0 +1,78 @@
+[tags]
+        [default_tag]
+             name             = "new tag"
+             mwfact           = 0.5
+             nmaster          = 1
+             layout           = "tile_right"
+             resizehint       = false
+             infobar_position = "top"
+        [/default_tag]
+
+        tag_round      = false
+        tag_auto_prev  = true
+        occupied_bg    = "#4f4f4f"
+        occupied_fg    = "#bebebe"
+        sel_fg         = "#1793d1"
+        sel_bg         = "#4f4f4f"
+        urgent_bg      = "#DD1111"
+        urgent_fg      = "#000000"
+        # If true, number of the tag will be used for name
+        name_count     = false
+        #default_name   = "new tag" # deprecated, use [default_tag] instead
+        #default_layout = "tile_right" # deprecated, use [default_tag] instead
+
+        # Border around the tag buttons.
+        border      = false
+
+        # Hide empty tags in tag list
+        autohide    = false
+
+        # Mouse buttons action on tag.
+        mouse_button_tag_sel       = "1"
+        mouse_button_tag_transfert = "2"
+        mouse_button_tag_add       = "3"
+        mouse_button_tag_next      = "4"
+        mouse_button_tag_prev      = "5"
+
+        [tag]
+                name             = "net"
+                screen           = 0
+                mwfact           = 0.65
+                nmaster          = 1
+                layout = "tile_grid_vertical"
+                infobar_position = "top"
+                clients           = {"iron", "midori", "arora", "chromium"}
+
+        [/tag]
+		[tag] 
+				name = "chat"
+				layout = "tile_grid_vertical"
+				clients           = {"Pidgin"}
+        [/tag]
+        [tag] 
+				name = "files"
+				layout = "tile_grid_vertical"
+				clients = {"pcmanfm"}
+        [/tag]
+        [tag] 
+				name = "irc"
+				layout = "tile_grid_horizontal"
+        [/tag]
+        [tag] 
+				name = "music"
+				layout = "tile_grid_horizontal"
+        [/tag]
+        [tag] 
+				name = "dev" 
+				layout = "tile_grid_vertical"
+				clients           = {"geany"}
+        [/tag]
+        [tag] 
+				name = "vbox" 
+				layout = "tile_grid_vertical"
+        [/tag]
+        [tag] 
+				name = "shell" 
+				layout = "tile_grid_vertical"
+        [/tag]
+[/tags]

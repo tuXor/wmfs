@@ -1,0 +1,134 @@
+#!/bin/sh
+# Author : tuXor
+# Script de gestion des séries télé.
+# Les dossiers de destination doivent porter comme nom une bride du nom du fichier.
+# Dans le cas ou le dossier de series est sur un repertoire amovible, la liste est stocké dans un fichier temporaire a chaque tri
+# Exemple : dossier : "big.bang.theory"   fichier : "S03e03.Big.Bang.theory.proper..."
+# Le script n'est pas sensible à la casse.
+
+dossierVrac="/docs/download/done/"
+dossierSeries="/media/dd-ext3/medias/series/"
+dossierFilms="/media/dd-ext3/medias/films"
+fichierTempSeries="/home/tuxor/.config/wmfs/scripts/series.tmp"
+fichierTempFilms="/home/tuxor/.config/wmfs/scripts/films.tmp"
+
+remplir_temps () {
+	
+			## Series
+			## On vide le temp
+			echo "" > $fichierTempSeries
+			cd $dossierSeries
+			for i in *; do
+				echo $i >> $fichierTempSeries
+				cd $i
+				echo "---------------------------------------------------" >> $fichierTempSeries
+				for j in *; do
+					echo "		$j" >> $fichierTempSeries
+				done
+				
+				echo " " >> $fichierTempSeries
+				cd ..
+				
+			done
+			echo "*** Remplissage Fichiers Series ***"
+			
+			## Films
+			## On vide le temp
+			echo "" > $fichierTempFilms
+			cd $dossierFilms
+			for i in *; do
+				echo $i >> $fichierTempFilms
+				echo "" >> $fichierTempFilms
+			done
+			echo "*** Remplissage Fichiers Films ***"
+		
+}
+
+
+case $1 in
+	
+	trier_series)
+		if [ -d $dossierSeries ]; then
+			cd $dossierSeries
+			
+			## On remplit le tableau en fonction des dossiers
+			compteur=0
+			for i in *; do
+				tabSeries[compteur]=$i
+				compteur=$compteur+1
+			done
+
+
+			cd $dossierVrac
+			
+			for i in *; do
+				## On remplace les espaces par des points
+				nameSansEspace=`echo "$i" | sed 's/ /./g'`
+				if [ "$i" != "$nameSansEspace" ]
+					then mv "$i" "$nameSansEspace"
+						 i=$nameSansEspace
+				fi
+				## On passe tout en minuscules
+				nomLower=`echo $i | tr '[A-Z]' '[a-z]'`
+				if [ "$i" != "$nomLower" ]
+					then mv "$i" "$nomLower"
+						 i=$nomLower
+				fi
+				for j in ${tabSeries[*]}; do
+					resultGrep=`echo $i | grep $j`
+					if [ "$resultGrep" = "$i" ]
+						then 
+							 echo "$i" ">" "$dossierSeries$j"
+							 mv "$i" "$dossierSeries$j"
+							 
+						
+					fi
+				done
+			done
+			
+			## on remplit le temp
+			remplir_temps
+		else
+			echo "*** Le dossier des series n'existe pas ***"
+		fi
+	;;
+	
+	lister_series)
+		if [ -d $dossierSeries ]; then
+			cd $dossierSeries
+			for i in *; do
+				echo $i
+				cd $i
+				echo "---------------------------------------------------"
+				for j in *; do
+					echo "		$j"
+				done
+				
+				echo " "
+				cd ..
+			done
+		else
+			cat $fichierTempSeries
+		fi
+	;;
+	
+	lister_films)
+		if [ -d $dossierFilms ]; then
+			cd $dossierFilms
+			for i in *; do
+				echo $i
+				echo ""
+			done
+		else
+			cat $fichierTempFilms
+		fi
+	;;
+	
+	*)
+		echo "Avant tout, merci d'éditer le script pour renseigner les dossiers"
+		echo "usage : {trier_series|lister_series|trier_films}"
+		
+	;;
+
+esac
+

@@ -1,0 +1,164 @@
+[misc]
+        font               = "snap-9"
+        raisefocus         = false
+        focus_follow_mouse = true
+        opacity            = 150
+        # focus_pointer_click: click on unfocused client area:
+        # true  -- default, set focus
+        # false -- click go to client; including dockapps
+        focus_pointer_click = true
+        status_timing      = 1
+[/misc]
+
+[bar]
+        bg     = "#3f3f3f"
+        fg     = "#bebebe"
+        height = 16
+        border = false
+       
+        [systray]
+                active = true
+				screen = 0
+				spacing = 1
+        [/systray]
+
+        #~ [selbar]
+                #~ bg = "#191919"
+                #~ fg = "#D4D4ff"
+
+                #~ # Cut title length
+                #~ # max_length = 25
+
+                #~ [mouse] button = "3" func = "clientlist"  [/mouse]
+                #~ [mouse] button = "4" func = "client_next" [/mouse]
+                #~ [mouse] button = "5" func = "client_prev" [/mouse]
+        #~ [/selbar]
+[/bar]
+
+[layouts]
+        fg = "#bebebe"
+        bg = "#3f3f3f"
+
+        border = false
+		system = "menu"
+
+        placement = "left"
+		layout_button_width    = 24
+        keep_layout_geo = true
+		
+		
+        selected_layout_symbol = "."
+
+        [layout] type = "tile_right"         symbol = "\i[9;5;9;7;~/.config/wmfs/icons/wh/tr.png]\"    [/layout]
+        [layout] type = "tile_left"          symbol = "\i[9;5;9;7;~/.config/wmfs/icons/wh/tl.png]\"     [/layout]
+        [layout] type = "tile_top"           symbol = "\i[9;5;9;7;~/.config/wmfs/icons/wh/tt.png]\"      [/layout]
+        [layout] type = "tile_bottom"        symbol = "\i[9;5;9;7;~/.config/wmfs/icons/wh/tb.png]\"   [/layout]
+        [layout] type = "tile_grid"          symbol = "\i[9;5;9;7;~/.config/wmfs/icons/wh/tg.png]\"   [/layout]
+        [layout] type = "tile_grid_vertical" symbol = "\i[9;5;9;7;~/.config/wmfs/icons/wh/tg.png]\"   [/layout]
+        [layout] type = "mirror_vertical"    symbol = "\i[9;5;9;7;~/.config/wmfs/icons/wh/mv.png]\" [/layout]
+        [layout] type = "mirror_horizontal"  symbol = "\i[9;5;9;7;~/.config/wmfs/icons/wh/tr.png]\" [/layout]
+
+        [layout] type = "max"   symbol = "\i[9;5;9;7;~/.config/wmfs/icons/wh/mx.png]\"  [/layout]
+        [layout] type = "free"  symbol = "\i[9;5;9;7;~/.config/wmfs/icons/wh/fr.png]\" [/layout]
+
+[/layouts]
+@include "~/.config/wmfs/includes/tags.wmfsrc"
+[root]
+        background_command = "$HOME/.config/wmfs/autostart.sh"
+
+        [mouse] button = "4" func = "tag_next"              [/mouse]
+        [mouse] button = "5" func = "tag_prev"              [/mouse]
+        [mouse] button = "3" func = "menu" cmd = "rootmenu" [/mouse]
+[/root]
+
+[client]
+        client_round         = true
+        client_auto_center   = false
+        border_height        = 2
+        border_shadow        = true
+        border_normal        = "#3f3f3f"
+        border_focus         = "#bebebe"
+        resize_corner_normal = "#3f3f3f"
+        resize_corner_focus  = "#bebebe"
+
+#        default_open_tag     = 4 # send all client that have no tag rule in this default tag
+#        default_open_screen  = 1 # same as above but for the screen
+
+        padding = 0
+
+        modifier = "Alt"
+
+        [mouse] button = "1" func = "client_raise" [/mouse]
+        [mouse] button = "1" func = "mouse_move"   [/mouse]
+        [mouse] button = "3" func = "client_raise" [/mouse]
+        [mouse] button = "3" func = "mouse_resize" [/mouse]
+
+        # Remove this section to delete the titlebar.
+        #~ [titlebar]
+                #~ stipple   = false
+                #~ height    = 12
+                #~ fg_normal = "#7E89A2"
+                #~ fg_focus  = "#9F9AB3"
+#~ 
+                #~ [mouse] button = "1" func = "client_raise" [/mouse]
+                #~ [mouse] button = "1" func = "mouse_move"   [/mouse]
+                #~ [mouse] button = "3" func = "client_raise" [/mouse]
+                #~ [mouse] button = "3" func = "mouse_resize" [/mouse]
+#~ 
+                #~ [button]
+                        #~ # Available "free", "max", "tile" flags of button.
+                        #~ flags = "free,max,tile"
+                        #~ [mouse] button = "1" func = "client_kill"             [/mouse]
+                        #~ [mouse] button = "3" func = "menu" cmd = "clientmenu" [/mouse]
+#~ 
+                        #~ [line] coord = {1, 1, 4, 1} [/line]
+                        #~ [line] coord = {1, 1, 1, 4} [/line]
+                        #~ [line] coord = {1, 4, 4, 4} [/line]
+                #~ [/button]
+        #~ [/titlebar]
+[/client]
+@include "~/.config/wmfs/includes/rules.wmfsrc"
+[menu]
+       [set_menu]
+        name      = "rootmenu"
+
+        fg_focus  = "#bebebe"
+        bg_focus  = "#1f1f1f"
+
+        fg_normal = "#bebebe"
+        bg_normal = "#3f3f3f"
+
+        [item]
+            name = "Quit WMFS"
+            func = "quit"
+        [/item]
+        [item]
+            name = "Terminal"
+            func = "spawn"
+            cmd  = "urxvtc"
+        [/item]
+        [item]
+            name = "Urxvtd"
+            func = "spawn"
+            cmd  = "urxvtd -q -f -o"
+		[/item]
+		[/set_menu]
+[/menu]
+
+[launcher]
+        [set_launcher]
+                width_limit = 300
+                name = "launcher_exec"
+                prompt = "    exec : "
+                command = "exec"
+        [/set_launcher]
+		#~ [set_launcher]
+				#~ name    = "launcher_term"
+				#~ prompt  = "    term : "
+				#~ command = "exec urxvtc -e"
+		#~ [/set_launcher]
+[/launcher]
+@include "~/.config/wmfs/includes/keys.wmfsrc"
+
+
+
